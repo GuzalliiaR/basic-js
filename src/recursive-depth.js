@@ -1,5 +1,3 @@
-const { NotImplementedError } = require('../lib');
-
 /**
  * Implement class DepthCalculator with method calculateDepth
  * that calculates depth of nested array
@@ -13,9 +11,22 @@ const { NotImplementedError } = require('../lib');
  *
  */
 class DepthCalculator {
-  calculateDepth(/* arr */) {
-    // Remove line below and write your code here
-    throw new NotImplementedError('Not implemented');
+  calculateDepth(arr) {
+    if (!Array.isArray(arr)) {
+      return 0
+    }
+
+    // Ищем максимальную вложенность среди элементов массива arr
+    let maxDepth = 0;
+    for (const el of arr) {
+      if (Array.isArray(el)) {
+        maxDepth = Math.max(maxDepth, this.calculateDepth(el))
+      }
+    }
+
+    // +1 так как ранее не учитывался сам массив arr как первый элемент вложенности
+    maxDepth += 1;
+    return maxDepth;
   }
 }
 
